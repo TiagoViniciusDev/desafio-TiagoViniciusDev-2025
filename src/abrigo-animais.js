@@ -17,8 +17,8 @@ class AbrigoAnimais {
     let animal1 = ordemAnimaisArr[0]
     let animal1Objeto = animaisInfo.find(animal => animal.nome === ordemAnimaisArr[0]); //Pegando o objeto do animal 1
 
-    console.log(brinquedosPessoa1Arr)
-    console.log(animal1Objeto.brinquedos)
+    // console.log(brinquedosPessoa1Arr)
+    // console.log(animal1Objeto.brinquedos)
 
     //Verifica se a pessoa 1 tem os brinquedos necessarios
     if(verificarBrinquedos(brinquedosPessoa1Arr, animal1Objeto.brinquedos)){
@@ -43,7 +43,21 @@ class AbrigoAnimais {
    //Funções
    //Verifica se possue todos os brinquedos desejados
    function verificarBrinquedos(brinquedos, brinquedosDesejados){
-      return brinquedos.every(e => brinquedosDesejados.includes(e));
+      let cadidatoValido = false
+      let brinquedosNecessarios = brinquedos.every(e => brinquedosDesejados.includes(e)); //Verifica a pessoa possue os brinquedos necessarios
+
+      //Verifica se possue os objetos na ordem correta
+      if(brinquedosNecessarios){
+        let array3 = brinquedos.filter(e => brinquedosDesejados.includes(e))
+        console.log("OK")
+        console.log(brinquedosDesejados)
+        console.log(array3)
+        if(array3 = brinquedosDesejados){
+          cadidatoValido = true
+        }
+      }
+
+      return cadidatoValido
    }
 
   }
