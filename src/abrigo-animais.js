@@ -3,19 +3,36 @@ import animaisInfo from "./animaisInfo.js"
 
 class AbrigoAnimais {
 
-  encontraPessoas(brinquedosPessoa1, brinquedosPessoa2, ordemAnimais) {
+  encontraPessoas(brinquedosPessoa1, brinquedosPessoa2, animaisParaAdocao) {
 
     //Transformando string em arrays
     let brinquedosPessoa1Arr = brinquedosPessoa1.split(',')
     let brinquedosPessoa2Arr = brinquedosPessoa2.split(',')
-    let ordemAnimaisArr = ordemAnimais.split(',')
+    let animaisParaAdocaoArr = animaisParaAdocao.split(',')
+
+    //Verificando se o nome dos animais são validos
+    let continuar = animaisParaAdocaoArr.map((nomeAnimal => {
+      let existeNomeAnimal = animaisInfo.some(animal => animal.nome === nomeAnimal)
+      if(existeNomeAnimal == false){
+       console.log({erro: 'Animal inválido', msg: `O animal com nome "${nomeAnimal}" não existe`})
+       return true
+      } else{
+        return false
+      }
+    }))
+
+    //Para a execução aqui se algum dos animais não existir
+    //Por conta do map o continuar é um arry
+    if(continuar[0] || continuar[1]){
+      return
+    }
 
     let result = [
-      { nome: ordemAnimaisArr[0], dono: 'abrigo', candidatosValidos: []},
-      { nome: ordemAnimaisArr[1], dono: 'abrigo', candidatosValidos: []}
+      { nome: animaisParaAdocaoArr[0], dono: 'abrigo', candidatosValidos: []},
+      { nome: animaisParaAdocaoArr[1], dono: 'abrigo', candidatosValidos: []}
     ]
   
-    let animal1Objeto = animaisInfo.find(animal => animal.nome === ordemAnimaisArr[0]); //Pegando o objeto do animal 1
+    let animal1Objeto = animaisInfo.find(animal => animal.nome === animaisParaAdocaoArr[0]); //Pegando o objeto do animal 1
 
     // console.log(brinquedosPessoa1Arr)
     // console.log(animal1Objeto.brinquedos)
