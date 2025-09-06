@@ -21,12 +21,22 @@ class AbrigoAnimais {
       }
     }))
 
+    //Verificando se há animais duplicados
+    
+    const set = new Set(animaisParaAdocaoArr) //Set remove qualquer elemento duplicado.
+    if(set.size !== animaisParaAdocaoArr.length){
+      console.log({erro: 'Animal inválido', msg: `O animal duplicado encontrado`})
+      continuar.push(true)
+    }
+    
+
     //Para a execução aqui se algum dos animais não existir
     //Por conta do map o continuar é um arry
-    if(continuar[0] || continuar[1]){
+    if(continuar[0] || continuar[1] || continuar[2]){
       return
     }
 
+    //Array de objetos que armazena as informações
     let result = [
       { nome: animaisParaAdocaoArr[0], dono: 'abrigo', candidatosValidos: []},
       { nome: animaisParaAdocaoArr[1], dono: 'abrigo', candidatosValidos: []}
@@ -58,6 +68,7 @@ class AbrigoAnimais {
     console.log(result)
 
    //Funções
+
    //Verifica se possue todos os brinquedos desejados
    function verificarBrinquedos(brinquedos, brinquedosDesejados){
       let cadidatoValido = false
@@ -77,6 +88,8 @@ class AbrigoAnimais {
 
   }
 
+
+
   
 }
 
@@ -88,10 +101,11 @@ export { AbrigoAnimais as AbrigoAnimais };
 
 
 
+
 //Chamando código
 
-// 1. Crie uma instância da classe AbrigoAnimais
+//Instância da classe AbrigoAnimais
 const meuAbrigo = new AbrigoAnimais();
 
-// 2. Chame a função encontraPessoas com os argumentos desejados
-meuAbrigo.encontraPessoas('RATO,BOLA', 'RATO,NOVELO,BOLA', 'Rex,Fofo');
+//Chamando a função encontraPessoas da classe
+meuAbrigo.encontraPessoas('RATO,BOLA', 'RATO,NOVELO,BOLA', 'Fofo,Fofo');
