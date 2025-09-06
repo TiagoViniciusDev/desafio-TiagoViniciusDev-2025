@@ -1,4 +1,4 @@
-import animaisInfo from "./animaisInfo.js"
+import {animaisInfo, brinquedos} from "./data.js"
 
 
 class AbrigoAnimais {
@@ -112,4 +112,4 @@ export { AbrigoAnimais as AbrigoAnimais };
 const meuAbrigo = new AbrigoAnimais();
 
 //Chamando a função encontraPessoas da classe
-meuAbrigo.encontraPessoas('RATO,BOLA', 'BOLA,NOVELO,BOLA', 'Rex,Fofo');
+meuAbrigo.encontraPessoas('RATO,BOLA', 'RATO,NOVELO,BOLA', 'Rex,Fofo');
