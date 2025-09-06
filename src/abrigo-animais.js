@@ -11,29 +11,30 @@ class AbrigoAnimais {
     let animaisParaAdocaoArr = animaisParaAdocao.split(',')
 
     //Verificando se o nome dos animais são validos
-    let continuar = animaisParaAdocaoArr.map((nomeAnimal => {
+    animaisParaAdocaoArr.map((nomeAnimal => {
       let existeNomeAnimal = animaisInfo.some(animal => animal.nome === nomeAnimal)
       if(existeNomeAnimal == false){
-       console.log({erro: 'Animal inválido', msg: `O animal com nome "${nomeAnimal}" não existe`})
-       return true
-      } else{
-        return false
+       console.log(`Erro: Nome de animal inválido. ${nomeAnimal}`)
+       throw new Error("Animal inválido")
       }
     }))
 
     //Verificando se há animais duplicados
-    
-    const set = new Set(animaisParaAdocaoArr) //Set remove qualquer elemento duplicado.
-    if(set.size !== animaisParaAdocaoArr.length){
-      console.log({erro: 'Animal inválido', msg: `O animal duplicado encontrado`})
-      continuar.push(true)
+    if(verificarDuplicados(animaisParaAdocaoArr)){
+      console.log(`Erro: Animais duplicados encontrados`)
+      throw new Error("Animal inválido")
     }
-    
 
-    //Para a execução aqui se algum dos animais não existir
-    //Por conta do map o continuar é um arry
-    if(continuar[0] || continuar[1] || continuar[2]){
-      return
+    //Verificando se pessoa1 tem brinquedos duplicados
+    if(verificarDuplicados(brinquedosPessoa1Arr)){
+      console.log(`Erro: Brinquedos duplicados encontrados (Pessoa1)`)
+      throw new Error("Brinquedo inválido")
+    }
+
+    //Verificando se pessoa2 tem brinquedos duplicados
+    if(verificarDuplicados(brinquedosPessoa2Arr)){
+      console.log(`Erro: Brinquedos duplicados encontrados (Pessoa2)`)
+      throw new Error("Brinquedo inválido")
     }
 
     //Array de objetos que armazena as informações
@@ -43,9 +44,6 @@ class AbrigoAnimais {
     ]
   
     let animal1Objeto = animaisInfo.find(animal => animal.nome === animaisParaAdocaoArr[0]); //Pegando o objeto do animal 1
-
-    // console.log(brinquedosPessoa1Arr)
-    // console.log(animal1Objeto.brinquedos)
 
     //Verifica se a pessoa 1 tem os brinquedos necessarios
     if(verificarBrinquedos(brinquedosPessoa1Arr, animal1Objeto.brinquedos)){
@@ -68,6 +66,12 @@ class AbrigoAnimais {
     console.log(result)
 
    //Funções
+
+   //Verifica se há elementos duplicados
+   function verificarDuplicados(arr){
+      const set = new Set(arr);
+      return set.size !== arr.length; //Set tiver elementos duplicados retorna true
+   }
 
    //Verifica se possue todos os brinquedos desejados
    function verificarBrinquedos(brinquedos, brinquedosDesejados){
@@ -108,4 +112,4 @@ export { AbrigoAnimais as AbrigoAnimais };
 const meuAbrigo = new AbrigoAnimais();
 
 //Chamando a função encontraPessoas da classe
-meuAbrigo.encontraPessoas('RATO,BOLA', 'RATO,NOVELO,BOLA', 'Fofo,Fofo');
+meuAbrigo.encontraPessoas('RATO,BOLA', 'BOLA,NOVELO,BOLA', 'Rex,Fofo');
