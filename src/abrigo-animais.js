@@ -1,4 +1,4 @@
-import {animaisInfo, brinquedos} from "./data.js"
+import {animaisInfo, brinquedosValidos} from "./data.js"
 
 
 class AbrigoAnimais {
@@ -18,6 +18,21 @@ class AbrigoAnimais {
        throw new Error("Animal inválido")
       }
     }))
+
+    //Verificando se pessoa1 tem brinquedos validos
+    if(!brinquedosPessoa1Arr.every(item => brinquedosValidos.includes(item))){
+      console.log(brinquedosValidos)
+      console.log(brinquedosPessoa1Arr)
+      console.log(`Erro: Brinquedo inválido encontrado (Pessoa1)`)
+      throw new Error("Brinquedo inválido")
+    }
+
+    //Verificando se pessoa2 tem brinquedos validos
+    if(!brinquedosPessoa2Arr.every(item => brinquedosValidos.includes(item))){
+      console.log(`Erro: Brinquedo inválido encontrado (Pessoa2)`)
+      throw new Error("Brinquedo inválido")
+    }
+
 
     //Verificando se há animais duplicados
     if(verificarDuplicados(animaisParaAdocaoArr)){

@@ -9,4 +9,4 @@ export const animaisInfo = [
 ];
 
 //Array com todos os brinquedos possiveis
-export const brinquedos = Array.from(new Set(animaisInfo.flatMap(animal => animal.brinquedos)));
+export const brinquedosValidos = Array.from(new Set(animaisInfo.flatMap(animal => animal.brinquedos)));
