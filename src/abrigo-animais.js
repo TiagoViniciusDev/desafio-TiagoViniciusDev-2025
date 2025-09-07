@@ -19,7 +19,7 @@ class AbrigoAnimais {
       }
     }))
 
-    //Verificando se brinquedos das pessoas são válidos
+    //Verificando se brinquedos das pessoas são válidos (nome)
       //Verificando se pessoa1 tem brinquedos válidos
       if(!brinquedosPessoa1Arr.every(item => brinquedosValidos.includes(item))){
         console.log(brinquedosValidos)
@@ -108,8 +108,11 @@ class AbrigoAnimais {
         let array3 = brinquedosPessoa.filter(e => brinquedosDesejados.includes(e))
         if(array3 = brinquedosDesejados){
           cadidatoValido = true
+        } else if(nomeAnimal === 'Loco'){ //Loco não se importa com a ordem dos brinquedos
+          cadidatoValido = true
         }
       }
+
 
       return cadidatoValido
    }
@@ -136,4 +139,4 @@ export { AbrigoAnimais as AbrigoAnimais };
 const meuAbrigo = new AbrigoAnimais();
 
 //Chamando a função encontraPessoas da classe
-meuAbrigo.encontraPessoas('RATO,BOLA,CAIXA,NOVELO', 'RATO,NOVELO', 'Rex,Fofo,Zero,Bola');
+meuAbrigo.encontraPessoas('RATO,BOLA,CAIXA,NOVELO', 'RATO,NOVELO,SKATE', 'Rex,Fofo,Zero,Bola,Loco');
