@@ -19,19 +19,20 @@ class AbrigoAnimais {
       }
     }))
 
-    //Verificando se pessoa1 tem brinquedos validos
-    if(!brinquedosPessoa1Arr.every(item => brinquedosValidos.includes(item))){
-      console.log(brinquedosValidos)
-      console.log(brinquedosPessoa1Arr)
-      console.log(`Erro: Brinquedo inválido encontrado (Pessoa1)`)
-      throw new Error("Brinquedo inválido")
-    }
+    //Verificando se brinquedos das pessoas são válidos
+      //Verificando se pessoa1 tem brinquedos válidos
+      if(!brinquedosPessoa1Arr.every(item => brinquedosValidos.includes(item))){
+        console.log(brinquedosValidos)
+        console.log(brinquedosPessoa1Arr)
+        console.log(`Erro: Brinquedo inválido encontrado (Pessoa1)`)
+        throw new Error("Brinquedo inválido")
+      }
 
-    //Verificando se pessoa2 tem brinquedos validos
-    if(!brinquedosPessoa2Arr.every(item => brinquedosValidos.includes(item))){
-      console.log(`Erro: Brinquedo inválido encontrado (Pessoa2)`)
-      throw new Error("Brinquedo inválido")
-    }
+      //Verificando se pessoa2 tem brinquedos válidos
+      if(!brinquedosPessoa2Arr.every(item => brinquedosValidos.includes(item))){
+        console.log(`Erro: Brinquedo inválido encontrado (Pessoa2)`)
+        throw new Error("Brinquedo inválido")
+      }
 
 
     //Verificando se há animais duplicados
@@ -40,35 +41,41 @@ class AbrigoAnimais {
       throw new Error("Animal inválido")
     }
 
-    //Verificando se pessoa1 tem brinquedos duplicados
-    if(verificarDuplicados(brinquedosPessoa1Arr)){
-      console.log(`Erro: Brinquedos duplicados encontrados (Pessoa1)`)
-      throw new Error("Brinquedo inválido")
-    }
+    //Verificando brinquedos duplicados
+      //Verificando se pessoa1 tem brinquedos duplicados
+      if(verificarDuplicados(brinquedosPessoa1Arr)){
+        console.log(`Erro: Brinquedos duplicados encontrados (Pessoa1)`)
+        throw new Error("Brinquedo inválido")
+      }
 
-    //Verificando se pessoa2 tem brinquedos duplicados
-    if(verificarDuplicados(brinquedosPessoa2Arr)){
-      console.log(`Erro: Brinquedos duplicados encontrados (Pessoa2)`)
-      throw new Error("Brinquedo inválido")
-    }
+      //Verificando se pessoa2 tem brinquedos duplicados
+      if(verificarDuplicados(brinquedosPessoa2Arr)){
+        console.log(`Erro: Brinquedos duplicados encontrados (Pessoa2)`)
+        throw new Error("Brinquedo inválido")
+      }
 
     //Array de objetos que armazena informações
     let result = []
     animaisParaAdocaoArr.map((animal) => {
       result.push({ nome: animal, dono: 'abrigo', candidatosValidos: []})
     })
-  
-    let animal1Objeto = animaisInfo.find(animal => animal.nome === animaisParaAdocaoArr[0]); //Pegando o objeto do animal 1
 
-    //Verifica se a pessoa 1 tem os brinquedos necessarios
-    if(verificarBrinquedos(brinquedosPessoa1Arr, animal1Objeto.brinquedos)){
-      result[0].candidatosValidos.push("Pessoa1")
-    }
+    //Animais disponiveis para cada pessoa
+      //Animais validos para pessoa 1
+      result.map((animal) => {
+        if(verificarBrinquedos(brinquedosPessoa1Arr, animal.nome)){
+          const index = result.findIndex(e => e.nome === animal.nome) //Obtem o index do animal
+          result[index].candidatosValidos.push("Pessoa 1") //Inseri a pessoa como cadidato válido
+        }
+      })
 
-    //Verifica se a pessoa 2 tem os brinquedos necessarios
-    if(verificarBrinquedos(brinquedosPessoa2Arr, animal1Objeto.brinquedos)){
-      result[0].candidatosValidos.push("Pessoa2")
-    }
+      //Animais validos para pessoa 2
+      result.map((animal) => {
+        if(verificarBrinquedos(brinquedosPessoa2Arr, animal.nome)){
+          const index = result.findIndex(e => e.nome === animal.nome) //Obtem o index do animal
+          result[index].candidatosValidos.push("Pessoa 2") //Inseri a pessoa como cadidato válido
+        }
+      })
 
     //Se o animal possuir APENAS um candidato válido o animal ganha um dono, do contrario permanece no abrigo
     result.map((animal) => {
@@ -89,14 +96,16 @@ class AbrigoAnimais {
    }
 
    //Verifica se possue todos os brinquedos desejados
-   function verificarBrinquedos(brinquedos, brinquedosDesejados){
+   function verificarBrinquedos(brinquedosPessoa, nomeAnimal){
+      let animalObj = animaisInfo.find(animal => animal.nome === nomeAnimal)
+      let brinquedosDesejados = animalObj.brinquedos
       let cadidatoValido = false
-      let brinquedosNecessarios = brinquedosDesejados.every(e => brinquedos.includes(e)); //Verifica a pessoa possue os brinquedos necessarios
+      let brinquedosNecessarios = brinquedosDesejados.every(e => brinquedosPessoa.includes(e)); //Verifica a pessoa possue os brinquedos necessarios
 
       //Verifica se possue os objetos na ordem correta
       //Com esse if consigo saber se a ordem está correta
       if(brinquedosNecessarios){
-        let array3 = brinquedos.filter(e => brinquedosDesejados.includes(e))
+        let array3 = brinquedosPessoa.filter(e => brinquedosDesejados.includes(e))
         if(array3 = brinquedosDesejados){
           cadidatoValido = true
         }
@@ -127,4 +136,4 @@ export { AbrigoAnimais as AbrigoAnimais };
 const meuAbrigo = new AbrigoAnimais();
 
 //Chamando a função encontraPessoas da classe
-meuAbrigo.encontraPessoas('RATO,BOLA,CAIXA,NOVELO', 'RATO,NOVELO', 'Rex,Fofo,Zero');
+meuAbrigo.encontraPessoas('RATO,BOLA,CAIXA,NOVELO', 'RATO,NOVELO', 'Rex,Fofo,Zero,Bola');
