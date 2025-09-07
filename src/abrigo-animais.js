@@ -55,37 +55,42 @@ class AbrigoAnimais {
       }
 
     //Array de objetos que armazena informações
-    let result = []
+    let listaDeAnimais = []
     animaisParaAdocaoArr.map((animal) => {
-      result.push({ nome: animal, dono: 'abrigo', candidatosValidos: []})
+      let animalObj = animaisInfo.find(e => e.nome === animal);
+      listaDeAnimais.push({ nome: animal, tipo: animalObj.tipo, dono: 'abrigo', candidatosValidos: []})
     })
 
     //Animais disponiveis para cada pessoa
       //Animais validos para pessoa 1
-      result.map((animal) => {
+      listaDeAnimais.map((animal) => {
         if(verificarBrinquedos(brinquedosPessoa1Arr, animal.nome)){
-          const index = result.findIndex(e => e.nome === animal.nome) //Obtem o index do animal
-          result[index].candidatosValidos.push("Pessoa 1") //Inseri a pessoa como cadidato válido
+          const index = listaDeAnimais.findIndex(e => e.nome === animal.nome) //Obtem o index do animal
+
+          //Se o animal for um gato tem que verificar se os brinquedos já estão sendo usados
+          
+
+          listaDeAnimais[index].candidatosValidos.push("Pessoa 1") //Inseri a pessoa como cadidato válido
         }
       })
 
       //Animais validos para pessoa 2
-      result.map((animal) => {
+      listaDeAnimais.map((animal) => {
         if(verificarBrinquedos(brinquedosPessoa2Arr, animal.nome)){
-          const index = result.findIndex(e => e.nome === animal.nome) //Obtem o index do animal
-          result[index].candidatosValidos.push("Pessoa 2") //Inseri a pessoa como cadidato válido
+          const index = listaDeAnimais.findIndex(e => e.nome === animal.nome) //Obtem o index do animal
+          listaDeAnimais[index].candidatosValidos.push("Pessoa 2") //Inseri a pessoa como cadidato válido
         }
       })
 
     //Se o animal possuir APENAS um candidato válido o animal ganha um dono, do contrario permanece no abrigo
-    result.map((animal) => {
+    listaDeAnimais.map((animal) => {
       if(animal.candidatosValidos.length === 1){
         animal.dono = animal.candidatosValidos[0]
       }
     })
    
 
-    console.log(result)
+    console.log(listaDeAnimais)
 
    //Funções
 
