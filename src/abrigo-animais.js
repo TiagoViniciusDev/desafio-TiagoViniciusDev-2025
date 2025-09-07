@@ -52,11 +52,11 @@ class AbrigoAnimais {
       throw new Error("Brinquedo inválido")
     }
 
-    //Array de objetos que armazena as informações
-    let result = [
-      { nome: animaisParaAdocaoArr[0], dono: 'abrigo', candidatosValidos: []},
-      { nome: animaisParaAdocaoArr[1], dono: 'abrigo', candidatosValidos: []}
-    ]
+    //Array de objetos que armazena informações
+    let result = []
+    animaisParaAdocaoArr.map((animal) => {
+      result.push({ nome: animal, dono: 'abrigo', candidatosValidos: []})
+    })
   
     let animal1Objeto = animaisInfo.find(animal => animal.nome === animaisParaAdocaoArr[0]); //Pegando o objeto do animal 1
 
@@ -84,8 +84,8 @@ class AbrigoAnimais {
 
    //Verifica se há elementos duplicados
    function verificarDuplicados(arr){
-      const set = new Set(arr);
-      return set.size !== arr.length; //Set tiver elementos duplicados retorna true
+      const set = new Set(arr)
+      return set.size !== arr.length //Set tiver elementos duplicados retorna true
    }
 
    //Verifica se possue todos os brinquedos desejados
@@ -127,4 +127,4 @@ export { AbrigoAnimais as AbrigoAnimais };
 const meuAbrigo = new AbrigoAnimais();
 
 //Chamando a função encontraPessoas da classe
-meuAbrigo.encontraPessoas('RATO,BOLA', 'RATO,NOVELO,BOLA', 'Rex,Fofo');
+meuAbrigo.encontraPessoas('RATO,BOLA,CAIXA,NOVELO', 'RATO,NOVELO', 'Rex,Fofo,Zero');
