@@ -69,8 +69,8 @@ class AbrigoAnimais {
 
           if(animal.tipo == 'gato'){ //Verifica se o animal é um gato
             if(animal.dono){ //Verifica se o dono já possui um animal adotado
-              // console.log("Pessoa 1 já tem pelo menos um animal adotado")
-              const animaisAdotadosPessoa1 = listaDeAnimais.filter(e => e.candidatosValidos[0] === 'Pessoa 1') //Todos os animais da pessoa
+              // console.log("pessoa 1 já tem pelo menos um animal adotado")
+              const animaisAdotadosPessoa1 = listaDeAnimais.filter(e => e.candidatosValidos[0] === 'pessoa 1') //Todos os animais da pessoa
               animaisAdotadosPessoa1.map((e) => { //Map verifica se nenhum dos animais adotados pela pessoa está usando os brinquedos
                 const brinquedosAnimal = animaisInfo.filter(a => a.nome === e.nome)[0].brinquedos
                 const brinquedosGato = animaisInfo.filter(a => a.nome === animal.nome)[0].brinquedos
@@ -81,12 +81,12 @@ class AbrigoAnimais {
               })
             }
           } else{
-            listaDeAnimais[index].candidatosValidos.push("Pessoa 1") //Inserir pessoa como cadidato válido
+            listaDeAnimais[index].candidatosValidos.push("pessoa 1") //Inserir pessoa como cadidato válido
           }
 
           //Se nenhum animal estiver usando os brinquedos o gato pode ser adotado
           if(gatoPodeserAdotadoPessoa1){ 
-            listaDeAnimais[index].candidatosValidos.push("Pessoa 1")
+            listaDeAnimais[index].candidatosValidos.push("pessoa 1")
           }
           
         }
@@ -101,8 +101,8 @@ class AbrigoAnimais {
 
             if(animal.tipo == 'gato'){ //Verifica se o animal é um gato
               if(animal.dono){ //Verifica se o dono já possui um animal adotado
-                // console.log("Pessoa 2 já tem pelo menos um animal adotado")
-                const animaisAdotadosPessoa1 = listaDeAnimais.filter(e => e.candidatosValidos[0] === 'Pessoa 2') //Todos os animais da pessoa
+                // console.log("pessoa 2 já tem pelo menos um animal adotado")
+                const animaisAdotadosPessoa1 = listaDeAnimais.filter(e => e.candidatosValidos[0] === 'pessoa 2') //Todos os animais da pessoa
                 animaisAdotadosPessoa1.map((e) => { //Map verifica se nenhum dos animais adotados pela pessoa está usando os brinquedos
                   const brinquedosAnimal = animaisInfo.filter(a => a.nome === e.nome)[0].brinquedos
                   const brinquedosGato = animaisInfo.filter(a => a.nome === animal.nome)[0].brinquedos
@@ -113,12 +113,12 @@ class AbrigoAnimais {
                 })
               }
             } else{
-              listaDeAnimais[index].candidatosValidos.push("Pessoa 2") //Inserir pessoa como cadidato válido
+              listaDeAnimais[index].candidatosValidos.push("pessoa 2") //Inserir pessoa como cadidato válido
             }
 
             //Se nenhum animal estiver usando os brinquedos o gato pode ser adotado
             if(gatoPodeserAdotadoPessoa2){ 
-              listaDeAnimais[index].candidatosValidos.push("Pessoa 2")
+              listaDeAnimais[index].candidatosValidos.push("pessoa 2")
             }
             
           }
@@ -128,7 +128,7 @@ class AbrigoAnimais {
       // listaDeAnimais.map((animal) => {
       //   if(verificarBrinquedos(brinquedosPessoa2Arr, animal.nome)){
       //     const index = listaDeAnimais.findIndex(e => e.nome === animal.nome) //Obtem o index do animal
-      //     listaDeAnimais[index].candidatosValidos.push("Pessoa 2") //Inseri a pessoa como cadidato válido
+      //     listaDeAnimais[index].candidatosValidos.push("pessoa 2") //Inseri a pessoa como cadidato válido
       //   }
       // })
 
@@ -151,6 +151,7 @@ class AbrigoAnimais {
       result.lista.push(`${animal.nome} - ${animal.dono}`)
     })
 
+    result.lista = result.lista.sort()
     console.log(result)
     return result
 
