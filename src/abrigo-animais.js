@@ -67,10 +67,30 @@ class AbrigoAnimais {
         if(verificarBrinquedos(brinquedosPessoa1Arr, animal.nome)){
           const index = listaDeAnimais.findIndex(e => e.nome === animal.nome) //Obtem o index do animal
 
-          //Se o animal for um gato tem que verificar se os brinquedos já estão sendo usados
-          
+          let gatoPodeserAdotado = false
 
-          listaDeAnimais[index].candidatosValidos.push("Pessoa 1") //Inseri a pessoa como cadidato válido
+          if(animal.tipo == 'gato'){ //Verifica se o animal é um gato
+            if(animal.dono){ //Verifica se o dono já possui um animal adotado
+              // console.log("Pessoa 1 já tem pelo menos um animal adotado")
+              const animaisAdotadosPessoa1 = listaDeAnimais.filter(e => e.candidatosValidos[0] === 'Pessoa 1') //Todos os animais da pessoa 1
+              animaisAdotadosPessoa1.map((e) => { //Map verifica se nenhum dos animais adotados pela pessoa está usando os brinquedos
+                const brinquedosAnimal = animaisInfo.filter(a => a.nome === "Rex")[0].brinquedos
+                const brinquedosGato = animaisInfo.filter(a => a.nome === animal.nome)[0].brinquedos
+                if(arraysIguais(brinquedosAnimal, brinquedosGato)){ //Se os brinquedos já estiverem em uso por outro animal adotado recusa a adoção do gato
+                  // console.log("Gato não pode ser adotado")
+                  gatoPodeserAdotado = false
+                }
+              })
+            }
+          } else{
+            listaDeAnimais[index].candidatosValidos.push("Pessoa 1") //Inserir pessoa como cadidato válido
+          }
+
+          //Se nenhum animal estiver usando os brinquedos o gato pode ser adotado
+          if(gatoPodeserAdotado){ 
+            listaDeAnimais[index].candidatosValidos.push("Pessoa 1")
+          }
+          
         }
       })
 
@@ -88,11 +108,36 @@ class AbrigoAnimais {
         animal.dono = animal.candidatosValidos[0]
       }
     })
-   
 
-    console.log(listaDeAnimais)
+
+
+    // console.log(listaDeAnimais)
+
+    let result = {
+      lista: []
+    }
+
+    listaDeAnimais.map((animal) => {
+      result.lista.push(`${animal.nome} - ${animal.dono}`)
+    })
+
+    console.log(result)
 
    //Funções
+
+   function arraysIguais(arr1, arr2) {
+      if (arr1.length !== arr2.length) {
+        return false // Comprimentos diferentes, não são iguais
+      }
+
+      for (let i = 0; i < arr1.length; i++) {
+        if (arr1[i] !== arr2[i]) {
+          return false // Elementos diferentes encontrados
+        }
+      }
+
+      return true // Todos os elementos correspondem
+   }
 
    //Verifica se há elementos duplicados
    function verificarDuplicados(arr){
@@ -141,7 +186,7 @@ export { AbrigoAnimais as AbrigoAnimais };
 //Chamando código
 
 //Instância da classe AbrigoAnimais
-const meuAbrigo = new AbrigoAnimais();
+const meuAbrigo = new AbrigoAnimais()
 
 //Chamando a função encontraPessoas da classe
-meuAbrigo.encontraPessoas('RATO,BOLA,CAIXA,NOVELO', 'RATO,NOVELO,SKATE', 'Rex,Fofo,Zero,Bola,Loco');
+meuAbrigo.encontraPessoas('RATO,BOLA,CAIXA,NOVELO', 'RATO,NOVELO,SKATE', 'Rex,Fofo,Zero,Bola,Loco')
