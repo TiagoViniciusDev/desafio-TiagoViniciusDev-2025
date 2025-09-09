@@ -7,3 +7,6 @@
 ### O Array de objetos "listaDeAnimais" armazena informação dos candidatos válidos ou dono do animal
 ![ObjListaDeAnimais](./public/ObjListaDeAnimais.png)
 
+### Todas as funções do projeto estão no final do código
+![funções](./public/funções.png)
+

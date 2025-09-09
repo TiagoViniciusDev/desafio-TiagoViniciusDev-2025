@@ -158,12 +158,13 @@ class AbrigoAnimais {
       lista: []
     }
 
+    //Inserindo todos os animais fornecidos no result que será retornado
     listaDeAnimais.map((animal) => {
       result.lista.push(`${animal.nome} - ${animal.dono}`)
     })
 
-    result.lista = result.lista.sort()
-    console.log(listaDeAnimais)
+    result.lista = result.lista.sort() //Organizando a lista em ordem alfabetica
+    // console.log(listaDeAnimais)
     console.log(result)
     return result
 
@@ -219,24 +220,6 @@ class AbrigoAnimais {
 
   }
 
-
-
-  
 }
 
 export { AbrigoAnimais as AbrigoAnimais };
-
-
-
-
-
-
-
-
-//Chamando código
-
-//Instância da classe AbrigoAnimais
-const meuAbrigo = new AbrigoAnimais()
-
-//Chamando a função encontraPessoas da classe
-meuAbrigo.encontraPessoas('RATO,BOLA,SKATE', 'BOLA,NOVELO,RATO,LASER', 'Loco')
