@@ -134,13 +134,13 @@ class AbrigoAnimais {
         if(animal.candidatosValidos.length === 1){
           animal.dono = animal.candidatosValidos[0]
 
-          //Se for um gato remover brinquedos de gato dessa pessoa, já que o gato não vai dividir
+          //Se for um gato remove os brinquedos de gato dessa pessoa, já que o gato não vai dividir
           if(animal.tipo === 'gato'){
             const numeroPessoa = animal.candidatosValidos[0].split(' ')[1] //Diz se é a pessoa 1 ou pessoa 2
             const brinquedosGato = animaisInfo.filter(a => a.nome === animal.nome)[0].brinquedos //Quais brinquedos o gato usa
             if(numeroPessoa == 1){
               const RemovendoBrinquedosDoGato = brinquedosPessoa1Arr.filter(elemento => !brinquedosGato.includes(elemento))
-              brinquedosPessoa2Arr = RemovendoBrinquedosDoGato
+              brinquedosPessoa1Arr = RemovendoBrinquedosDoGato
             } else if(numeroPessoa == 2){
               const RemovendoBrinquedosDoGato = brinquedosPessoa2Arr.filter(elemento => !brinquedosGato.includes(elemento))
               brinquedosPessoa2Arr = RemovendoBrinquedosDoGato
