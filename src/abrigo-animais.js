@@ -78,9 +78,6 @@ class AbrigoAnimais {
                 if(arraysIguais(brinquedosAnimal, brinquedosGato)){ //Se os brinquedos já estiverem em uso por outro animal adotado recusa a adoção do gato
                   gatoPodeserAdotadoPessoa1 = false
                 } else{
-                  //Removendo brinquedos do gato da pessoa, já que o gato não divide
-                  //Testar se funciona com rex e mimi
-                  const RemovendoBrinquedosDoGato = brinquedosPessoa1Arr.filter(elemento => !brinquedosGato.includes(elemento))
                   gatoPodeserAdotadoPessoa1 = true
                 }
               })
@@ -115,9 +112,6 @@ class AbrigoAnimais {
                 if(arraysIguais(brinquedosAnimal, brinquedosGato)){ //Se os brinquedos já estiverem em uso por outro animal adotado recusa a adoção do gato
                   gatoPodeserAdotadoPessoa2 = false
                 } else{
-                  //Removendo brinquedos do gato da pessoa, já que o gato não divide
-                  //Testar se funciona com rex e mimi
-                  const RemovendoBrinquedosDoGato = brinquedosPessoa2Arr.filter(elemento => !brinquedosGato.includes(elemento))
                   gatoPodeserAdotadoPessoa2 = true
                 }
               })
@@ -142,8 +136,6 @@ class AbrigoAnimais {
 
           //Se for um gato remover brinquedos de gato dessa pessoa, já que o gato não vai dividir
           if(animal.tipo === 'gato'){
-            // console.log("GATO DETECTADO")
-            // console.log(animal)
             const numeroPessoa = animal.candidatosValidos[0].split(' ')[1] //Diz se é a pessoa 1 ou pessoa 2
             const brinquedosGato = animaisInfo.filter(a => a.nome === animal.nome)[0].brinquedos //Quais brinquedos o gato usa
             if(numeroPessoa == 1){
@@ -177,7 +169,7 @@ class AbrigoAnimais {
 
    //Funções
 
-   function arraysIguais(arr1, arr2) {
+   function arraysIguais(arr1, arr2) {  //Verifica se arrays são iguais
       if (arr1.length !== arr2.length) {
         return false // Comprimentos diferentes, não são iguais
       }
@@ -191,8 +183,7 @@ class AbrigoAnimais {
       return true // Todos os elementos correspondem
    }
 
-   //Verifica se há elementos duplicados
-   function verificarDuplicados(arr){
+   function verificarDuplicados(arr){ //Verifica se há elementos duplicados em um array
       const set = new Set(arr)
       return set.size !== arr.length //Set tiver elementos duplicados retorna true
    }
@@ -203,18 +194,18 @@ class AbrigoAnimais {
       let brinquedosPessoaIndex = 0;
       let brinquedosAnimalIndex = 0;
 
+      //Verifica se tem os brinquedos e a ordem desses brinquedos
       while (brinquedosAnimalIndex < brinquedosAnimal.length && brinquedosPessoaIndex < brinquedosPessoa.length) {
           if (brinquedosPessoa[brinquedosPessoaIndex] === brinquedosAnimal[brinquedosAnimalIndex]) {
               brinquedosAnimalIndex++;
           }
           brinquedosPessoaIndex++;
       }
+
+      //Loco não se importa com a ordem dos brinquedos dele se tiver outro animal
       if(nomeAnimal === 'Loco'){
-        console.log("Loco detectado")
         let pessoa = `pessoa ${pessoaNumero}`
-        console.log(pessoa)
         let animaisAdotadosPessoa = listaDeAnimais.filter(e => e.dono === pessoa) //Todos os animais da pessoa
-        console.log(animaisAdotadosPessoa)
         if(animaisAdotadosPessoa.length >= 1){
           return true
         } else{
