@@ -62,79 +62,85 @@ class AbrigoAnimais {
     //Verificando candidatos validos animais
     listaDeAnimais.map((animal) => {
 
-
       //Verificando Pessoa 1
       if(verificarBrinquedos(brinquedosPessoa1Arr, animal.nome)){
         const index = listaDeAnimais.findIndex(e => e.nome === animal.nome) //Obtem o index do animal
-
+        const animaisAdotadosPessoa1 = listaDeAnimais.filter(e => e.dono === 'pessoa 1') //Todos os animais da pessoa
         let gatoPodeserAdotadoPessoa1 = false
 
-        if(animal.tipo == 'gato'){ //Verifica se o animal é um gato
-          const animaisAdotadosPessoa1 = listaDeAnimais.filter(e => e.candidatosValidos[0] === 'pessoa 1') //Todos os animais da pessoa
-          if(animaisAdotadosPessoa1.length >= 1){ //Verifica se a pessoa possui ao menos um animal adotado
-            console.log("pessoa 1 já tem pelo menos um animal adotado")
-            console.log(animaisAdotadosPessoa1)
-            animaisAdotadosPessoa1.map((e) => { //Map verifica se nenhum dos animais adotados pela pessoa está usando os brinquedos
-              const brinquedosAnimal = animaisInfo.filter(a => a.nome === e.nome)[0].brinquedos
-              const brinquedosGato = animaisInfo.filter(a => a.nome === animal.nome)[0].brinquedos
-              if(arraysIguais(brinquedosAnimal, brinquedosGato)){ //Se os brinquedos já estiverem em uso por outro animal adotado recusa a adoção do gato
-                gatoPodeserAdotadoPessoa1 = false
-              } else{
-                //Removendo brinquedos do gato da pessoa, já que o gato não divide
-                //Testar se funciona com rex e mimi
-                const RemovendoBrinquedosDoGato = brinquedosPessoa1Arr.filter(elemento => !brinquedosGato.includes(elemento))
-                console.log(brinquedosPessoa1Arr)
-                console.log(RemovendoBrinquedosDoGato)
-                gatoPodeserAdotadoPessoa1 = true
-              }
-            })
+        if(animaisAdotadosPessoa1.length < 3){ //Verifica se a pessoa já tem 3 animais adotados
+          if(animal.tipo == 'gato'){ //Verifica se o animal é um gato
+          
+            if(animaisAdotadosPessoa1.length >= 1){ //Verifica se a pessoa possui ao menos um animal adotado
+              console.log("pessoa 1 já tem pelo menos um animal adotado")
+              console.log(animaisAdotadosPessoa1)
+              animaisAdotadosPessoa1.map((e) => { //Map verifica se nenhum dos animais adotados pela pessoa está usando os brinquedos
+                const brinquedosAnimal = animaisInfo.filter(a => a.nome === e.nome)[0].brinquedos
+                const brinquedosGato = animaisInfo.filter(a => a.nome === animal.nome)[0].brinquedos
+                if(arraysIguais(brinquedosAnimal, brinquedosGato)){ //Se os brinquedos já estiverem em uso por outro animal adotado recusa a adoção do gato
+                  gatoPodeserAdotadoPessoa1 = false
+                } else{
+                  //Removendo brinquedos do gato da pessoa, já que o gato não divide
+                  //Testar se funciona com rex e mimi
+                  const RemovendoBrinquedosDoGato = brinquedosPessoa1Arr.filter(elemento => !brinquedosGato.includes(elemento))
+                  console.log(brinquedosPessoa1Arr)
+                  console.log(RemovendoBrinquedosDoGato)
+                  gatoPodeserAdotadoPessoa1 = true
+                }
+              })
+            } else{
+              listaDeAnimais[index].candidatosValidos.push("pessoa 1") //Inseri pessoa como cadidato válido
+            }
+
           } else{
             listaDeAnimais[index].candidatosValidos.push("pessoa 1") //Inseri pessoa como cadidato válido
           }
 
-        } else{
-          listaDeAnimais[index].candidatosValidos.push("pessoa 1") //Inseri pessoa como cadidato válido
+          if(gatoPodeserAdotadoPessoa1){
+            listaDeAnimais[index].candidatosValidos.push("pessoa 1")
+          }
         }
-
-        //Se nenhum animal estiver usando os brinquedos o gato pode ser adotado
-        if(gatoPodeserAdotadoPessoa1){
-          listaDeAnimais[index].candidatosValidos.push("pessoa 1")
-        }
-        
       }
 
 
       //Verificando Pessoa 2
       if(verificarBrinquedos(brinquedosPessoa2Arr, animal.nome)){
         const index = listaDeAnimais.findIndex(e => e.nome === animal.nome) //Obtem o index do animal
-
+        const animaisAdotadosPessoa2 = listaDeAnimais.filter(e => e.dono === 'pessoa 2') //Todos os animais da pessoa
         let gatoPodeserAdotadoPessoa2 = false
 
-        if(animal.tipo == 'gato'){ //Verifica se o animal é um gato
-          const animaisAdotadosPessoa2 = listaDeAnimais.filter(e => e.candidatosValidos[0] === 'pessoa 2') //Todos os animais da pessoa
-          if(animaisAdotadosPessoa2.length >= 1){ //Verifica se a pessoa possui ao menos um animal adotado
-            animaisAdotadosPessoa2.map((e) => { //Map verifica se nenhum dos animais adotados pela pessoa está usando os brinquedos
-              const brinquedosAnimal = animaisInfo.filter(a => a.nome === e.nome)[0].brinquedos
-              const brinquedosGato = animaisInfo.filter(a => a.nome === animal.nome)[0].brinquedos
-              if(arraysIguais(brinquedosAnimal, brinquedosGato)){ //Se os brinquedos já estiverem em uso por outro animal adotado recusa a adoção do gato
-                gatoPodeserAdotadoPessoa2 = false
-              } else{
-                gatoPodeserAdotadoPessoa2 = true
-              }
-            })
+        if(animaisAdotadosPessoa2.length < 3){ //Verifica se a pessoa já tem 3 animais adotados
+          if(animal.tipo == 'gato'){ //Verifica se o animal é um gato
+          
+            if(animaisAdotadosPessoa2.length >= 1){ //Verifica se a pessoa possui ao menos um animal adotado
+              console.log("pessoa 2 já tem pelo menos um animal adotado")
+              console.log(animaisAdotadosPessoa2)
+              animaisAdotadosPessoa2.map((e) => { //Map verifica se nenhum dos animais adotados pela pessoa está usando os brinquedos
+                const brinquedosAnimal = animaisInfo.filter(a => a.nome === e.nome)[0].brinquedos
+                const brinquedosGato = animaisInfo.filter(a => a.nome === animal.nome)[0].brinquedos
+                if(arraysIguais(brinquedosAnimal, brinquedosGato)){ //Se os brinquedos já estiverem em uso por outro animal adotado recusa a adoção do gato
+                  gatoPodeserAdotadoPessoa2 = false
+                } else{
+                  //Removendo brinquedos do gato da pessoa, já que o gato não divide
+                  //Testar se funciona com rex e mimi
+                  const RemovendoBrinquedosDoGato = brinquedosPessoa2Arr.filter(elemento => !brinquedosGato.includes(elemento))
+                  console.log(brinquedosPessoa2Arr)
+                  console.log(RemovendoBrinquedosDoGato)
+                  gatoPodeserAdotadoPessoa2 = true
+                }
+              })
+            } else{
+              listaDeAnimais[index].candidatosValidos.push("pessoa 2") //Inseri pessoa como cadidato válido
+            }
+
           } else{
             listaDeAnimais[index].candidatosValidos.push("pessoa 2") //Inseri pessoa como cadidato válido
           }
 
-        } else{
-          listaDeAnimais[index].candidatosValidos.push("pessoa 2") //Inseri pessoa como cadidato válido
+          if(gatoPodeserAdotadoPessoa2){
+            listaDeAnimais[index].candidatosValidos.push("pessoa 2")
+          }
         }
-
-        //Se nenhum animal estiver usando os brinquedos o gato pode ser adotado
-        if(gatoPodeserAdotadoPessoa2){
-          listaDeAnimais[index].candidatosValidos.push("pessoa 2")
-        }
-        
       }
 
       //Se o animal possuir APENAS um candidato válido o animal ganha um dono, do contrario permanece no abrigo
@@ -173,7 +179,7 @@ class AbrigoAnimais {
     })
 
     result.lista = result.lista.sort()
-    // console.log(listaDeAnimais)
+    console.log(listaDeAnimais)
     console.log(result)
     return result
 
