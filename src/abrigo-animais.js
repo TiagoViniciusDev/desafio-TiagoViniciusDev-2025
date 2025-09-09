@@ -63,7 +63,7 @@ class AbrigoAnimais {
     listaDeAnimais.map((animal) => {
 
       //Verificando Pessoa 1
-      if(verificarBrinquedos(brinquedosPessoa1Arr, animal.nome)){
+      if(verificarBrinquedos(brinquedosPessoa1Arr, animal.nome, 1)){
         const index = listaDeAnimais.findIndex(e => e.nome === animal.nome) //Obtem o index do animal
         const animaisAdotadosPessoa1 = listaDeAnimais.filter(e => e.dono === 'pessoa 1') //Todos os animais da pessoa
         let gatoPodeserAdotadoPessoa1 = false
@@ -72,8 +72,6 @@ class AbrigoAnimais {
           if(animal.tipo == 'gato'){ //Verifica se o animal é um gato
           
             if(animaisAdotadosPessoa1.length >= 1){ //Verifica se a pessoa possui ao menos um animal adotado
-              console.log("pessoa 1 já tem pelo menos um animal adotado")
-              console.log(animaisAdotadosPessoa1)
               animaisAdotadosPessoa1.map((e) => { //Map verifica se nenhum dos animais adotados pela pessoa está usando os brinquedos
                 const brinquedosAnimal = animaisInfo.filter(a => a.nome === e.nome)[0].brinquedos
                 const brinquedosGato = animaisInfo.filter(a => a.nome === animal.nome)[0].brinquedos
@@ -83,8 +81,6 @@ class AbrigoAnimais {
                   //Removendo brinquedos do gato da pessoa, já que o gato não divide
                   //Testar se funciona com rex e mimi
                   const RemovendoBrinquedosDoGato = brinquedosPessoa1Arr.filter(elemento => !brinquedosGato.includes(elemento))
-                  console.log(brinquedosPessoa1Arr)
-                  console.log(RemovendoBrinquedosDoGato)
                   gatoPodeserAdotadoPessoa1 = true
                 }
               })
@@ -104,7 +100,7 @@ class AbrigoAnimais {
 
 
       //Verificando Pessoa 2
-      if(verificarBrinquedos(brinquedosPessoa2Arr, animal.nome)){
+      if(verificarBrinquedos(brinquedosPessoa2Arr, animal.nome, 2)){
         const index = listaDeAnimais.findIndex(e => e.nome === animal.nome) //Obtem o index do animal
         const animaisAdotadosPessoa2 = listaDeAnimais.filter(e => e.dono === 'pessoa 2') //Todos os animais da pessoa
         let gatoPodeserAdotadoPessoa2 = false
@@ -113,8 +109,6 @@ class AbrigoAnimais {
           if(animal.tipo == 'gato'){ //Verifica se o animal é um gato
           
             if(animaisAdotadosPessoa2.length >= 1){ //Verifica se a pessoa possui ao menos um animal adotado
-              console.log("pessoa 2 já tem pelo menos um animal adotado")
-              console.log(animaisAdotadosPessoa2)
               animaisAdotadosPessoa2.map((e) => { //Map verifica se nenhum dos animais adotados pela pessoa está usando os brinquedos
                 const brinquedosAnimal = animaisInfo.filter(a => a.nome === e.nome)[0].brinquedos
                 const brinquedosGato = animaisInfo.filter(a => a.nome === animal.nome)[0].brinquedos
@@ -124,8 +118,6 @@ class AbrigoAnimais {
                   //Removendo brinquedos do gato da pessoa, já que o gato não divide
                   //Testar se funciona com rex e mimi
                   const RemovendoBrinquedosDoGato = brinquedosPessoa2Arr.filter(elemento => !brinquedosGato.includes(elemento))
-                  console.log(brinquedosPessoa2Arr)
-                  console.log(RemovendoBrinquedosDoGato)
                   gatoPodeserAdotadoPessoa2 = true
                 }
               })
@@ -206,25 +198,32 @@ class AbrigoAnimais {
    }
 
    //Verifica se possue todos os brinquedos desejados
-   function verificarBrinquedos(brinquedosPessoa, nomeAnimal){
-      let animalObj = animaisInfo.find(animal => animal.nome === nomeAnimal)
-      let brinquedosDesejados = animalObj.brinquedos
-      let cadidatoValido = false
-      let brinquedosNecessarios = brinquedosDesejados.every(e => brinquedosPessoa.includes(e)); //Verifica a pessoa possue os brinquedos necessarios
+   function verificarBrinquedos(brinquedosPessoa, nomeAnimal, pessoaNumero){
+      let brinquedosAnimal = animaisInfo.find(animal => animal.nome === nomeAnimal).brinquedos
+      let brinquedosPessoaIndex = 0;
+      let brinquedosAnimalIndex = 0;
 
-      //Verifica se possue os objetos na ordem correta
-      //Com esse if consigo saber se a ordem está correta
-      if(brinquedosNecessarios){
-        let array3 = brinquedosPessoa.filter(e => brinquedosDesejados.includes(e))
-        if(array3 = brinquedosDesejados){
-          cadidatoValido = true
-        } else if(nomeAnimal === 'Loco'){ //Loco não se importa com a ordem dos brinquedos
-          cadidatoValido = true
+      while (brinquedosAnimalIndex < brinquedosAnimal.length && brinquedosPessoaIndex < brinquedosPessoa.length) {
+          if (brinquedosPessoa[brinquedosPessoaIndex] === brinquedosAnimal[brinquedosAnimalIndex]) {
+              brinquedosAnimalIndex++;
+          }
+          brinquedosPessoaIndex++;
+      }
+      if(nomeAnimal === 'Loco'){
+        console.log("Loco detectado")
+        let pessoa = `pessoa ${pessoaNumero}`
+        console.log(pessoa)
+        let animaisAdotadosPessoa = listaDeAnimais.filter(e => e.dono === pessoa) //Todos os animais da pessoa
+        console.log(animaisAdotadosPessoa)
+        if(animaisAdotadosPessoa.length >= 1){
+          return true
+        } else{
+          return false
         }
+      } else{
+        return brinquedosAnimalIndex === brinquedosAnimal.length;
       }
 
-
-      return cadidatoValido
    }
 
   }
@@ -249,4 +248,4 @@ export { AbrigoAnimais as AbrigoAnimais };
 const meuAbrigo = new AbrigoAnimais()
 
 //Chamando a função encontraPessoas da classe
-meuAbrigo.encontraPessoas('BOLA,LASER', 'BOLA,NOVELO,RATO,LASER', 'Mimi,Fofo,Rex,Bola')
+meuAbrigo.encontraPessoas('RATO,BOLA,SKATE', 'BOLA,NOVELO,RATO,LASER', 'Loco')
